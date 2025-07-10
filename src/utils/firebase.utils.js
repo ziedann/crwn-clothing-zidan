@@ -21,7 +21,7 @@ import {
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: "AIzaSyB9TPZlTGuHJQkKe6daHp7LZJqIcnqAyv0",
   authDomain: "crwn-clothing-db-98d4d.firebaseapp.com",
   projectId: "crwn-clothing-db-98d4d",
   storageBucket: "crwn-clothing-db-98d4d.appspot.com",
@@ -36,6 +36,8 @@ const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
   prompt: 'select_account',
+  access_type: 'offline',
+  include_granted_scopes: true
 });
 
 export const auth = getAuth(firebaseApp);

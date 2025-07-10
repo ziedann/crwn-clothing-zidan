@@ -3,12 +3,6 @@ import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
-
-// import {
-//   createAuthUserWithEmailAndPassword,
-//   createUserDocumentFromAuth,
-// } from "../../utils/firebase.utils";
-
 import { SignUpContainer } from "./sign-up-form.styles";
 import { signUpStart } from "../../store/user/user.action";
 
@@ -36,26 +30,30 @@ const SignUpForm = () => {
       return;
     }
 
+    if (password.length < 6) {
+      alert("Password should be at least 6 characters long");
+      return;
+    }
+
     try {
-      // const { user } = await createAuthUserWithEmailAndPassword(
-      //   email,
-      //   password
-      // );
-      // await createUserDocumentFromAuth(user, { displayName });
       dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");
+      } else if (error.code === "auth/invalid-email") {
+        alert("Invalid email format");
+      } else if (error.code === "auth/weak-password") {
+        alert("Password should be at least 6 characters");
       } else {
-        console.log("user creation encountered an error", error);
+        console.error("User creation error:", error);
+        alert("Error creating user: " + error.message);
       }
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
 
@@ -89,6 +87,7 @@ const SignUpForm = () => {
           onChange={handleChange}
           name="password"
           value={password}
+          minLength="6"
         />
 
         <FormInput
@@ -98,6 +97,7 @@ const SignUpForm = () => {
           onChange={handleChange}
           name="confirmPassword"
           value={confirmPassword}
+          minLength="6"
         />
         <Button type="submit">Sign Up</Button>
       </form>

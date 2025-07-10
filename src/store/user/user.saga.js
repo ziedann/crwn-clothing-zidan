@@ -76,14 +76,23 @@ export function* isUserAuthenticated() {
 
 export function* signUp({ payload: { email, password, displayName } }) {
   try {
+    if (!email || !password || !displayName) {
+      throw new Error('Email, password, and display name are required');
+    }
+    
+    if (password.length < 6) {
+      throw new Error('Password should be at least 6 characters');
+    }
+
     const { user } = yield call(
       createAuthUserWithEmailAndPassword,
       email,
       password
     );
-    // dispatch new action that sets the currentUser in the state
+    
     yield put(signUpSuccess(user, { displayName }));
   } catch (error) {
+    console.error('Sign up error:', error);
     yield put(signUpFailed(error));
   }
 }

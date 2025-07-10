@@ -18,7 +18,7 @@ function App() {
     dispatch(checkUserSession());
     // Initialize Firebase data - remove this line after first run
     initializeFirebaseData();
-  }, []);
+  }, [dispatch]); // Added dispatch to dependencies
 
   return (
     <>

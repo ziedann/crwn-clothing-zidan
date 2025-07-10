@@ -13,15 +13,8 @@ const Shop = () => {
 
   // Get categories from database
   useEffect(() => {
-    const getCategoriesMap = async () => {
-      // const categoriesArray = await getCategoriesAndDocuments("categories");
-      // dispatch(setCategories(categoriesArray));
-      // dispatch(fetchCategoriesStartAsync()); // REDUX-THUNK
-      dispatch(fetchCategoriesStart());
-    };
-
-    getCategoriesMap();
-  }, []);
+    dispatch(fetchCategoriesStart());
+  }, [dispatch]); // Added dispatch to dependencies
 
   return (
     <Routes>

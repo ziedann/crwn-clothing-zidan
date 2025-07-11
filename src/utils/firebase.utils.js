@@ -22,11 +22,13 @@ import {
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9TPZlTGuHJQkKe6daHp7LZJqIcnqAyv0",
-  authDomain: "crwn-clothing-db-98d4d.firebaseapp.com",
-  projectId: "crwn-clothing-db-98d4d",
-  storageBucket: "crwn-clothing-db-98d4d.appspot.com",
-  messagingSenderId: "626766232035",
-  appId: "1:626766232035:web:506621582dab103a4d08d6"
+  authDomain: "crwn-db-111.firebaseapp.com",
+  databaseURL: "https://crwn-db-111-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "crwn-db-111",
+  storageBucket: "crwn-db-111.firebasestorage.app",
+  messagingSenderId: "401706622239",
+  appId: "1:401706622239:web:4c0038f8d734985b73242a",
+  measurementId: "G-DKMK9X7MEE"
 };
 
 // Initialize Firebase
@@ -35,12 +37,12 @@ const firebaseApp = initializeApp(firebaseConfig);
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-  prompt: 'select_account',
-  access_type: 'offline',
-  include_granted_scopes: true
+  prompt: 'select_account'
 });
 
-export const auth = getAuth(firebaseApp);
+export const auth = getAuth();
+auth.useDeviceLanguage();
+
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
